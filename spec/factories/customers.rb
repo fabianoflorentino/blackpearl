@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
+# customer
 FactoryBot.define do
   factory :customer do
-    name { 'MyString' }
-    limit { 1 }
-    balance { 1 }
+    name { Faker::Name.name }
+    limit { SecureRandom.random_number(10_000) }
+    balance { SecureRandom.random_number(10_000) }
   end
 end
