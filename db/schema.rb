@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_302_015_845) do
+ActiveRecord::Schema[7.1].define(version: 20_240_302_155_627) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -22,4 +24,17 @@ ActiveRecord::Schema[7.1].define(version: 20_240_302_015_845) do
     t.datetime 'updated_at', null: false
     t.index ['balance'], name: 'index_customers_on_balance'
   end
+
+  create_table 'transactions', force: :cascade do |t|
+    t.integer 'amount', default: 0, null: false
+    t.string 'type', null: false
+    t.text 'desciption', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.bigint 'customer_id', null: false
+    t.index ['amount'], name: 'index_transactions_on_amount'
+    t.index ['customer_id'], name: 'index_transactions_on_customer_id'
+  end
+
+  add_foreign_key 'transactions', 'customers'
 end
