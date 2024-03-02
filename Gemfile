@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 ruby '3.2.3'
@@ -22,4 +24,5 @@ group :development, :test do
   gem 'rubocop-rails', '~> 2.23.1'
   gem 'rubocop-rspec', '~> 2.27.0'
   gem 'rubocop-shopify', '~> 2.15.1'
+  gem 'shoulda-matchers', '~> 5.3'
 end
