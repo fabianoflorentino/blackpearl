@@ -10,4 +10,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Define a resource route for customers
+  resources :customers, only: %i[index show] do
+    resources :transactions, only: %i[create]
+  end
 end
