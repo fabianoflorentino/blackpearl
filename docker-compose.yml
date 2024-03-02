@@ -30,16 +30,16 @@ services:
     networks:
       - dev
 
-  # blackpearl-migration:
-  #   container_name: blackpearl-migration
-  #   image: fabianoflorentino/blackpearl:0.1-linux-arm64
-  #   hostname: blackpearl-migration
-  #   volumes:
-  #     - .:/app
-  #   env_file: .env
-  #   networks:
-  #     - dev
-  #   entrypoint: ["/bin/bash", "-c", "bin/migration"]
+  blackpearl-migration:
+    container_name: blackpearl-migration
+    image: fabianoflorentino/blackpearl:0.1-linux-arm64
+    hostname: blackpearl-migration
+    volumes:
+      - .:/app
+    env_file: .env
+    networks:
+      - dev
+    entrypoint: ["/bin/bash", "-c", "bin/migration"]
 
 volumes:
   data:
