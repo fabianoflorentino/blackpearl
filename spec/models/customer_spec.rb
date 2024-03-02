@@ -3,23 +3,38 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  it 'is valid with valid attributes' do
-    customer = Customer.new(name: 'John', limit: 1000, balance: 0)
-    expect(customer).to be_valid
+  let(:customer) { Customer.new }
+
+  it { should have_many(:transactions) }
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:limit) }
+  it { should validate_presence_of(:balance) }
+
+  it 'should validate the presence of the name' do
+    customer.name = nil
+
+    customer.valid?
+    expect(customer.errors[:name]).to include("can't be blank")
   end
 
-  it 'is not valid without a name' do
-    customer = Customer.new(name: nil, limit: 1000, balance: 0)
-    expect(customer).to_not be_valid
+  it 'should validate the presence of the limit' do
+    customer.limit = -1
+
+    customer.valid?
+    expect(customer.errors[:limit]).to include('must be greater than 0')
   end
 
-  it 'is not valid without a limit' do
-    customer = Customer.new(name: 'John', limit: nil, balance: 0)
-    expect(customer).to_not be_valid
+  it 'should validate the presence of the limit' do
+    customer.limit = 'string'
+
+    customer.valid?
+    expect(customer.errors[:limit]).to include('is not a number')
   end
 
-  it 'is not valid without a balance' do
-    customer = Customer.new(name: 'John', limit: 1000, balance: nil)
-    expect(customer).to_not be_valid
+  it 'should validate the presence of the balance' do
+    customer.balance = 'string'
+
+    customer.valid?
+    expect(customer.errors[:balance]).to include('is not a number')
   end
 end
