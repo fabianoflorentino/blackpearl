@@ -13,6 +13,8 @@ RSpec.describe Transaction do
   it { is_expected.to validate_presence_of(:description) }
 
   it 'validates the presence of the customer' do
+    transaction.customer_id = nil
+
     transaction.valid?
     expect(transaction.errors[:customer]).to include('must exist')
   end
