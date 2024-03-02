@@ -37,6 +37,8 @@ services:
     volumes:
       - .:/app
     env_file: .env
+    depends_on:
+      - blackpearl-db
     networks:
       - dev
     entrypoint: ["/bin/bash", "-c", "bin/migration"]
