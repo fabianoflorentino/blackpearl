@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Transaction, type: :model do
+RSpec.describe Transaction do
   let(:transaction) { described_class.new }
 
   it { is_expected.to belong_to(:customer) }
