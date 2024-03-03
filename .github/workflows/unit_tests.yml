@@ -22,7 +22,7 @@ jobs:
       RAILS_ENV: development
       RAILS_MAX_THREADS: 2
       WEB_CONCURRENCY: 2
-      POSTGRES_HOST: postgres
+      POSTGRES_HOST: localhost
       POSTGRES_PORT: '5432'
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: ephermeral_exists_during_tests
@@ -31,7 +31,7 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_PORT: '5432'
           POSTGRES_USER: admin
           POSTGRES_PASSWORD: ephermeral_exists_during_tests
@@ -61,7 +61,6 @@ jobs:
 
       - name: Database Setup
         run: |
-          bundle exec rails db:setup
           bundle exec rails db:migrate
 
       - name: Run RSpec
