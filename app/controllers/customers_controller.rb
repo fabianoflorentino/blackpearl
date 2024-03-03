@@ -15,6 +15,12 @@ class CustomersController < ApplicationController
     render json: { message: 'Customer created!' }, status: :created
   end
 
+  def destroy
+    customer.destroy!
+
+    render json: { message: 'Customer deleted!' }, status: :ok
+  end
+
   private
 
   def customers
