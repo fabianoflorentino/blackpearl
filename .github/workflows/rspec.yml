@@ -1,5 +1,5 @@
 ---
-name: Unit Tests
+name: RSpec
 
 on:
   push:
