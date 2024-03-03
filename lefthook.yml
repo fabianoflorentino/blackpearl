@@ -1,0 +1,25 @@
+---
+pre-push:
+  parallel: true
+  commands:
+    rubocop:
+      run: docker compose exec -it blackpearl /bin/bash -c "bundle exec rubocop"
+      description: "Run Rubocop"
+
+    brakeman:
+      run: docker compose exec -it blackpearl /bin/bash -c "bundle exec brakeman"
+      description: "Run Brakeman"
+
+pre-commit:
+  commands:
+    rubocop:
+      run: docker compose exec -it blackpearl /bin/bash -c "bundle exec rubocop"
+      description: "Run Rubocop"
+
+    brakeman:
+      run: docker compose exec -it blackpearl /bin/bash -c "bundle exec brakeman --no-page"
+      description: "Run Brakeman"
+
+    rspec:
+      run: docker compose exec -it blackpearl /bin/bash -c "bundle exec rspec"
+      description: "Run RSpec"
