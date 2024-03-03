@@ -22,23 +22,23 @@ jobs:
       RAILS_ENV: development
       RAILS_MAX_THREADS: 2
       WEB_CONCURRENCY: 2
-      PGPASSFILE: /app/.pgpass
-      POSTGRES_PASSWORD: ephermeral_exists_during_tests
-      POSTGRES_USER: admin
       POSTGRES_HOST: postgres
-      POSTGRES_DB: blackpearl
       POSTGRES_PORT: '5432'
-      POSTGRES_MAX_CONNECTIONS: '30'
-      POSTGRES_RANDOM_PAGE_COST: '1.1'
-      POSTGRES_EFFECTIVE_IO_CONCURRENCY: '30'
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ephermeral_exists_during_tests
+      POSTGRES_DB: blackpearl
     services:
       postgres:
         image: postgres:latest
         env:
           POSTGRES_HOST: postgres
+          POSTGRES_PORT: '5432'
           POSTGRES_USER: admin
           POSTGRES_PASSWORD: ephermeral_exists_during_tests
           POSTGRES_DB: blackpearl
+          POSTGRES_MAX_CONNECTIONS: '30'
+          POSTGRES_RANDOM_PAGE_COST: '1.1'
+          POSTGRES_EFFECTIVE_IO_CONCURRENCY: '30'
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 3
@@ -60,7 +60,9 @@ jobs:
         run: bundle install
 
       - name: Database Setup
-        run: bundle exec rails db:migrate
+        run: |
+          bundle exec rails db:setup
+          bundle exec rails db:migrate
 
       - name: Run RSpec
         run: bundle exec rspec
