@@ -14,3 +14,6 @@ Metrics/BlockLength:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
