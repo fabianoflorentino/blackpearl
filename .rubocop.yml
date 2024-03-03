@@ -11,3 +11,6 @@ require:
 
 Metrics/BlockLength:
   Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
