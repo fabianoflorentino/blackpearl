@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+  blackpearl:
+    container_name: blackpearl
+    image: fabianoflorentino/blackpearl:0.1-linux-arm64
+    hostname: blackpearl
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9999:3000"
+    links:
+      - blackpearl-db
+    volumes:
+      - .:/app
+    env_file: .env
+    networks:
+      - dev
+    tty: true
+    stdin_open: true
+
+  blackpearl-db:
+    container_name: blackpearl-db
+    image: postgres:latest
+    hostname: blackpearl-db
+    volumes:
+      - data:/var/lib/postgresql/data
+    env_file: .env
+    networks:
+      - dev
+
+  blackpearl-migration:
+    container_name: blackpearl-migration
+    image: fabianoflorentino/blackpearl:0.1-linux-arm64
+    hostname: blackpearl-migration
+    volumes:
+      - .:/app
+    env_file: .env
+    depends_on:
+      - blackpearl-db
+    networks:
+      - dev
+    entrypoint: ["/bin/bash", "-c", "bin/migration"]
+
+volumes:
+  data:
+    name: blackpearl
+    driver: local
+
+networks:
+  dev:
+    name: blackpearl
+    driver: bridge
