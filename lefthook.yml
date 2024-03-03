@@ -7,7 +7,7 @@ pre-push:
       description: "Run Rubocop"
 
     brakeman:
-      run: docker compose exec -it blackpearl /bin/bash -c "bundle exec brakeman"
+      run: docker compose exec -it blackpearl /bin/bash -c "bundle exec brakeman --no-page"
       description: "Run Brakeman"
 
 pre-commit:
