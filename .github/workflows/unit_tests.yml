@@ -24,18 +24,18 @@ jobs:
       WEB_CONCURRENCY: 2
       POSTGRES_HOST: localhost
       POSTGRES_PORT: '5432'
-      POSTGRES_USER: "{{ secrets.POSTGRES_USER }}"
-      POSTGRES_PASSWORD: "{{ secrets.POSTGRES_PASSWORD }}"
-      POSTGRES_DB: "{{ secrets.POSTGRES_DB }}"
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
     services:
       postgres:
         image: postgres:latest
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: '5432'
-          POSTGRES_USER: "{{ secrets.POSTGRES_USER }}"
-          POSTGRES_PASSWORD: "{{ secrets.POSTGRES_PASSWORD }}"
-          POSTGRES_DB: "{{ secrets.POSTGRES_DB }}"
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_MAX_CONNECTIONS: '30'
           POSTGRES_RANDOM_PAGE_COST: '1.1'
           POSTGRES_EFFECTIVE_IO_CONCURRENCY: '30'
