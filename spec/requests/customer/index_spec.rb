@@ -60,12 +60,12 @@ RSpec.describe 'GET - /customers' do
   end
 
   context 'when there is an error' do
-    it 'returns a 500' do
+    it 'returns a 422' do
       allow(Customer).to receive(:all).and_raise(StandardError)
 
       get(url)
 
-      expect(response).to have_http_status(:internal_server_error)
+      expect(response).to have_http_status(:unprocessable_entity)
     end
   end
 end

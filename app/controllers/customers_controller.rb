@@ -10,6 +10,11 @@ class CustomersController < ApplicationController
     render json: { customer: }, status: :ok
   end
 
+  def create
+    CustomerUseCase::Create.new(customer_params).call
+    render json: { message: 'Customer created!' }, status: :created
+  end
+
   private
 
   def customers
@@ -18,5 +23,9 @@ class CustomersController < ApplicationController
 
   def customer
     @customer ||= Customer.find(params[:id])
+  end
+
+  def customer_params
+    params.require(:customer).permit(:name, :limit)
   end
 end
