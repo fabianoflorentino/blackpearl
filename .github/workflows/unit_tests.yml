@@ -25,6 +25,7 @@ jobs:
       PGPASSFILE: /app/.pgpass
       POSTGRES_PASSWORD: ephermeral_exists_during_tests
       POSTGRES_USER: admin
+      POSTGRES_HOST: postgres
       POSTGRES_DB: blackpearl
       POSTGRES_PORT: '5432'
       POSTGRES_MAX_CONNECTIONS: '30'
