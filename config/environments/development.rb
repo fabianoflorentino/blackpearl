@@ -5,7 +5,7 @@ require 'active_support/core_ext/integer/time'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.hosts += [/.*\.localhost/, 'localhost']
+  config.hosts += [/.*\.localhost/, 'localhost', 'www.example.com']
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
