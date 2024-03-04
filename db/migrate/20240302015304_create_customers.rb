@@ -6,7 +6,7 @@
 # This table will be used to store the customers' data
 class CreateCustomers < ActiveRecord::Migration[7.1]
   def change
-    create_table :customers do |t|
+    create_table :customers, id: :uuid do |t|
       t.string :name
       t.integer :limit, default: 0
       t.integer :balance, default: 0

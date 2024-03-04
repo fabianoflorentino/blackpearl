@@ -3,7 +3,7 @@
 # Transaction model which is used to interact with the database.
 class CreateTransactions < ActiveRecord::Migration[7.1]
   def change
-    create_table :transactions do |t|
+    create_table :transactions, id: :uuid do |t|
       t.integer :amount, null: false, default: 0
       t.string :type, null: false
       t.text :description, null: false, limit: 10
