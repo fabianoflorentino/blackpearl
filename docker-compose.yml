@@ -41,7 +41,7 @@ services:
       - blackpearl-db
     networks:
       - dev
-    entrypoint: ["/bin/bash", "-c", "bin/migration"]
+    entrypoint: ["/bin/sh", "-c", "bin/migration"]
 
 volumes:
   data:
