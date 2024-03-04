@@ -3,10 +3,12 @@
 # Transaction model which is used to interact with the database.
 class AddRefCustomerIdToTransactions < ActiveRecord::Migration[7.1]
   def up
-    add_reference :transactions, :customers, null: false, default: 1, foreign_key: true
+    add_column :transactions, :customer_id, :uuid
+    add_foreign_key :transactions, :customers, column: :customer_id
   end
 
   def down
-    remove_reference :transactions, :customers
+    remove_foreign_key :transactions, :customers
+    remove_column :transactions, :customer_id
   end
 end
