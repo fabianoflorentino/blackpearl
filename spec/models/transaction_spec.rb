@@ -19,13 +19,6 @@ RSpec.describe Transaction do
     expect(transaction.errors[:customer]).to include('must exist')
   end
 
-  it 'validates the amount to be greater than or equal to 0' do
-    transaction.amount = -1
-
-    transaction.valid?
-    expect(transaction.errors[:amount]).to include('must be greater than 0')
-  end
-
   it 'validates the amount to be greater than 0' do
     transaction.amount = 0
 
