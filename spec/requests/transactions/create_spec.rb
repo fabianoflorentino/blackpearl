@@ -47,6 +47,22 @@ RSpec.describe 'POST - /customers/:id/transactions' do
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
+    it 'returns status code 422 if description has special characters' do
+      description = '!@#$%^&**()[]_+'
+
+      post("/customers/#{customer.id}/transactions", params: { transaction: { description: } })
+
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it 'returns status code 422 if description is nil' do
+      description = nil
+
+      post("/customers/#{customer.id}/transactions", params: { transaction: { description: } })
+
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
     it 'returns status code 422 if customer_id is invalid' do
       customer_id = SecureRandom.uuid
 
