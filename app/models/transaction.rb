@@ -4,7 +4,7 @@
 class Transaction < ApplicationRecord
   belongs_to :customer
 
-  validates :amount, presence: true, numericality: { greater_than: 0 }
-  validates :type, presence: true, inclusion: { in: %w[c d] }
+  validates :amount, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :kind, presence: true, inclusion: { in: %w[c d] }
   validates :description, presence: true, length: { maximum: 10 }
 end
