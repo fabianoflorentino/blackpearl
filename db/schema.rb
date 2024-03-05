@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_02_155627) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "customers", force: :cascade do |t|
+  create_table "customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.integer "limit", default: 0
     t.integer "balance", default: 0
@@ -23,15 +23,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_02_155627) do
     t.index ["balance"], name: "index_customers_on_balance"
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.integer "amount", default: 0, null: false
-    t.string "type", null: false
+  create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "amount", null: false
+    t.string "kind", null: false
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "customer_id", default: 1, null: false
+    t.uuid "customer_id"
     t.index ["amount"], name: "index_transactions_on_amount"
-    t.index ["customer_id"], name: "index_transactions_on_customer_id"
   end
 
   add_foreign_key "transactions", "customers"
