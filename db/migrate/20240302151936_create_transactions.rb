@@ -4,8 +4,8 @@
 class CreateTransactions < ActiveRecord::Migration[7.1]
   def change
     create_table :transactions, id: :uuid do |t|
-      t.integer :amount, null: false, default: 0
-      t.string :type, null: false
+      t.integer :amount, null: false
+      t.string :kind, null: false
       t.text :description, null: false, limit: 10
 
       t.timestamps
