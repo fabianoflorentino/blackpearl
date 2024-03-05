@@ -30,3 +30,4 @@ ignore:
     - 'LICENSE'
     - 'docs/**'
     - '.github/**'
+    - '.*.yml'
