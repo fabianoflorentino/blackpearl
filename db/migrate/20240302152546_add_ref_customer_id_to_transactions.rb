@@ -4,7 +4,7 @@
 class AddRefCustomerIdToTransactions < ActiveRecord::Migration[7.1]
   def up
     add_column :transactions, :customer_id, :uuid
-    add_foreign_key :transactions, :customers, column: :customer_id
+    add_foreign_key :transactions, :customers, column: :customer_id, primary_key: :id
   end
 
   def down
