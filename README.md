@@ -20,10 +20,18 @@ graph LR
   load_balancer(Load Balancer)
   database[(Database)]
 
+  subgraph Proxy
+    load_balancer
+  end
+
   subgraph Application
     load_balancer
     black_pearl_api_1
     black_pearl_api_2
+
+  end
+
+  subgraph Data
     database
   end
 
@@ -38,6 +46,8 @@ graph LR
 
   class user default
   class Application application
+  class Proxy application
+  class Data application
   class load_balancer load_balancer
   class black_pearl_api_1 black_pearl
   class black_pearl_api_2 black_pearl
