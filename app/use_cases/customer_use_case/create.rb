@@ -12,6 +12,7 @@ module CustomerUseCase
       raise SharedErrors::NameInUse, customer_params[:name] if name_exists?
 
       new_customer.save!
+      new_customer
     end
 
     private
