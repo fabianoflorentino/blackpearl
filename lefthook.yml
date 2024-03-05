@@ -23,3 +23,10 @@ pre-commit:
     rspec:
       run: docker compose exec -it blackpearl /bin/sh -c "bundle exec rspec"
       description: "Run RSpec"
+
+ignore:
+  pattern:
+    - 'README.md'
+    - 'LICENSE'
+    - 'docs/**'
+    - '.github/**'
