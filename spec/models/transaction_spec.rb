@@ -56,4 +56,19 @@ RSpec.describe Transaction do
     transaction.valid?
     expect(transaction.errors[:description]).to include('is too long (maximum is 10 characters)')
   end
+
+  it 'validates the description has special characters' do
+    transaction.description = 'a!'
+
+    transaction.valid?
+    expect(transaction.errors[:description]).to include('should not contain special characters')
+  end
+
+  it 'validate the description is nil' do
+    transaction.description = nil
+
+    transaction.valid?
+
+    expect(transaction.errors[:description]).to include("can't be blank")
+  end
 end
