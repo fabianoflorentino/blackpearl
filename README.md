@@ -54,7 +54,7 @@ graph LR
   class database database
 ```
 
-## Database
+### Database
 
 ```mermaid
 erDiagram
@@ -78,4 +78,33 @@ erDiagram
     DATETIME created_at
     DATETIME updated_at
   }
+```
+
+### Endpoints
+
+### GET
+
+- `GET /customers`: List all customers
+- `GET /customers/:id`: Show a customer
+- `DELETE /customers/:id`: Delete a customer
+- `GET /customers/:customer_id/extract`: List all transactions of a customer
+
+### POST
+
+- `POST /customers/:customer_id/transactions`: Create a transaction for a customer
+
+| Parameter | Type | Description | Required | Observations |
+| :--- | :---: | :--- | :---: | :--- |
+| kind | string | Transaction kind (c for credit, d for debit) | true | Transaction kind must be c or d |
+| amount | integer | Transaction amount | true | Transaction amount must be greater than 0 |
+| description | text | Transaction description | true | Transaction must have maximum 10 characters |
+
+`Body example:`
+
+```json
+{
+  "kind": "c",
+  "amount": 1000,
+  "description": "Credit"
+}
 ```
