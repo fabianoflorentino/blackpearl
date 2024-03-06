@@ -53,3 +53,58 @@ graph LR
   class black_pearl_api_2 black_pearl
   class database database
 ```
+
+### Database
+
+```mermaid
+erDiagram
+  CUSTOMER ||--o{ TRANSACTION : has_many
+
+  CUSTOMER {
+    UUID id
+    STRING name
+    INT limit
+    INT balance
+    DATETIME created_at
+    DATETIME updated_at
+  }
+
+  TRANSACTION {
+    UUID id
+    UUID customer_id
+    STRING kind
+    INT amount
+    TEXT description
+    DATETIME created_at
+    DATETIME updated_at
+  }
+```
+
+### Endpoints
+
+### GET
+
+- `GET /customers`: List all customers
+- `GET /customers/:id`: Show a customer
+- `DELETE /customers/:id`: Delete a customer
+- `GET /customers/:customer_id/extract`: List all transactions of a customer
+
+### POST
+
+- `POST /customers/:customer_id/transactions`: Create a transaction for a customer
+
+| Parameter | Type | Description | Required | Observations |
+| :--- | :---: | :--- | :---: | :--- |
+| kind | string | Transaction kind (c for credit, d for debit) | true | Transaction kind must be c or d |
+| amount | integer | Transaction amount | true | Transaction amount must be greater than 0 |
+| description | text | Transaction description | true | Transaction must have maximum 10 characters |
+
+`Body example:`
+
+```json
+{
+  "kind": "c",
+  "amount": 1000,
+  "description": "Credit"
+}
+```
