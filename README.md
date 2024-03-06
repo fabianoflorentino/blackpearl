@@ -80,18 +80,20 @@ erDiagram
   }
 ```
 
-### Endpoints
+## Endpoints
 
-### GET
+### CUSTOMER
 
 - `GET /customers`: List all customers
 - `GET /customers/:id`: Show a customer
-- `DELETE /customers/:id`: Delete a customer
 - `GET /customers/:customer_id/extract`: List all transactions of a customer
+- `DELETE /customers/:id`: Delete a customer
 
-### POST
+### TRANSACTION
 
 - `POST /customers/:customer_id/transactions`: Create a transaction for a customer
+
+### Parameters
 
 | Parameter | Type | Description | Required | Observations |
 | :--- | :---: | :--- | :---: | :--- |
@@ -99,12 +101,18 @@ erDiagram
 | amount | integer | Transaction amount | true | Transaction amount must be greater than 0 |
 | description | text | Transaction description | true | Transaction must have maximum 10 characters |
 
-`Body example:`
+#### Example
 
-```json
-{
-  "kind": "c",
-  "amount": 1000,
-  "description": "Credit"
-}
+`cURL`
+
+```shell
+curl --location 'http://localhost:9999/customers/5c515ff2-7236-4543-8cf4-92c02acc86bc/transactions' \
+--header 'Content-Type: application/json' \
+--data '{
+  "transaction": {
+    "amount": 2,
+    "kind": "d",
+    "description": "debt"
+  }
+}'
 ```
