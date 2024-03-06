@@ -53,3 +53,29 @@ graph LR
   class black_pearl_api_2 black_pearl
   class database database
 ```
+
+## Database
+
+```mermaid
+erDiagram
+  CUSTOMER ||--o{ TRANSACTION : has_many
+
+  CUSTOMER {
+    UUID id
+    STRING name
+    INT limit
+    INT balance
+    DATETIME created_at
+    DATETIME updated_at
+  }
+
+  TRANSACTION {
+    UUID id
+    UUID customer_id
+    STRING kind
+    INT amount
+    TEXT description
+    DATETIME created_at
+    DATETIME updated_at
+  }
+```
