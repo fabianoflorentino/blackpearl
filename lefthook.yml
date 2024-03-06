@@ -3,31 +3,28 @@ pre-push:
   parallel: true
   commands:
     rubocop:
+      glob: "**/*.rb"
       run: docker compose exec -it blackpearl /bin/sh -c "bundle exec rubocop"
       description: "Run Rubocop"
 
     brakeman:
+      glob: "**/*.rb"
       run: docker compose exec -it blackpearl /bin/sh -c "bundle exec brakeman --no-page"
       description: "Run Brakeman"
 
 pre-commit:
   commands:
     rubocop:
+      glob: "**/*.rb"
       run: docker compose exec -it blackpearl /bin/sh -c "bundle exec rubocop"
       description: "Run Rubocop"
 
     brakeman:
+      glob: "**/*.rb"
       run: docker compose exec -it blackpearl /bin/sh -c "bundle exec brakeman --no-page"
       description: "Run Brakeman"
 
     rspec:
+      glob: "**/*.rb"
       run: docker compose exec -it blackpearl /bin/sh -c "bundle exec rspec"
       description: "Run RSpec"
-
-ignore:
-  pattern:
-    - 'README.md'
-    - 'LICENSE'
-    - 'docs/**'
-    - '.github/**'
-    - '.*.yml'
