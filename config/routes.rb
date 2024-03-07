@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   # Define a resource route for customers
   resources :customers, only: %i[index show create destroy] do
     resources :transactions, only: %i[create]
+    resources :extracts, only: %i[index]
   end
 end
