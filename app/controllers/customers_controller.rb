@@ -15,6 +15,11 @@ class CustomersController < ApplicationController
     render json: { message: 'Customer created!' }, status: :created
   end
 
+  def update
+    CustomerUseCase::Update.new(params[:id], customer_params).call
+    render json: { message: 'Customer updated!' }, status: :ok
+  end
+
   def destroy
     customer.destroy!
 
