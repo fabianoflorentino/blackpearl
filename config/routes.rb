@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Define a resource route for customers
-  resources :customers, only: %i[index show create destroy] do
+  resources :customers, only: %i[index show create update destroy] do
     resources :transactions, only: %i[create]
     resources :extracts, only: %i[index]
   end
