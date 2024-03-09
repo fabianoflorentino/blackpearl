@@ -86,12 +86,17 @@ erDiagram
 
 - `GET /customers`: List all customers
 - `GET /customers/:id`: Show a customer
-- `GET /customers/:customer_id/extract`: List all transactions of a customer
+- `POST /customers`: Create a customer
+- `PUT /customers/:id`: Update a customer
 - `DELETE /customers/:id`: Delete a customer
 
 ### TRANSACTION
 
 - `POST /customers/:customer_id/transactions`: Create a transaction for a customer
+
+### EXTRACT
+
+- `GET /customers/:customer_id/extract`: List all transactions of a customer
 
 ### Parameters
 
