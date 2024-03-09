@@ -90,13 +90,13 @@ erDiagram
 - `PUT /customers/:id`: Update a customer
 - `DELETE /customers/:id`: Delete a customer
 
-### TRANSACTION
-
-- `POST /customers/:customer_id/transactions`: Create a transaction for a customer
-
 ### EXTRACT
 
 - `GET /customers/:customer_id/extract`: List all transactions of a customer
+
+### TRANSACTION
+
+- `POST /customers/:customer_id/transactions`: Create a transaction for a customer
 
 ### Parameters
 
