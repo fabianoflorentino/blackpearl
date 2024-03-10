@@ -8,6 +8,7 @@ gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
 
 gem 'bootsnap', require: false
 gem 'jsonapi-serializer', '~> 2.2.0'
+gem 'jwt', '~> 2.8', '>= 2.8.1'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'tzinfo-data', '~> 1.2024', '>= 1.2024.1'
