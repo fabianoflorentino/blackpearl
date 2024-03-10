@@ -9,8 +9,6 @@ module CustomerUseCase
     end
 
     def call
-      raise SharedErrors::NameInUse, customer_params[:name] if name_exists?
-
       new_customer.save!
       new_customer
     end
@@ -21,10 +19,6 @@ module CustomerUseCase
 
     def new_customer
       Customer.new(customer_params)
-    end
-
-    def name_exists?
-      Customer.exists?(name: customer_params[:name])
     end
   end
 end

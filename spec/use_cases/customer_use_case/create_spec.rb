@@ -3,30 +3,49 @@
 require 'rails_helper'
 
 RSpec.describe CustomerUseCase::Create do
-  let(:customer_params) { { name: 'John Doe', limit: 1000 } }
+  let(:customer_params) { attributes_for(:customer) }
 
   describe '#call' do
-    context 'when name is not in use' do
+    context 'when the customer is valid' do
       it 'creates a new customer' do
         expect { described_class.new(customer_params).call }.to change(Customer, :count).by(1)
       end
-
-      it 'returns the created customer' do
-        customer = described_class.new(customer_params).call
-
-        expect(customer).to be_a(Customer.new.class)
-      end
-
-      it 'returns the created customer with the correct name' do
-        expect(described_class.new(customer_params).call.name).to eq('John Doe')
-      end
     end
 
-    context 'when name is in use' do
-      it 'raises a NameInUse error' do
-        Customer.create!(name: 'John Doe', limit: 1000)
+    context 'when the customer is invalid' do
+      it 'name is required' do
+        customer_params[:name] = nil
+        expect { described_class.new(customer_params).call }.to raise_error(ActiveRecord::RecordInvalid)
+      end
 
-        expect { described_class.new(customer_params).call }.to raise_error(SharedErrors::NameInUse)
+      it 'email is required' do
+        customer_params[:email] = nil
+        expect { described_class.new(customer_params).call }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+
+      it 'name already exists' do
+        create(:customer, name: customer_params[:name])
+        expect { described_class.new(customer_params).call }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+
+      it 'email already exists' do
+        create(:customer, email: customer_params[:email])
+        expect { described_class.new(customer_params).call }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+
+      it 'password is required' do
+        customer_params[:password] = nil
+        expect { described_class.new(customer_params).call }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+
+      it 'password is too short' do
+        customer_params[:password] = '123'
+        expect { described_class.new(customer_params).call }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+
+      it 'password is too long' do
+        customer_params[:password] = '1234567890123456789012345678901234567890'
+        expect { described_class.new(customer_params).call }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
