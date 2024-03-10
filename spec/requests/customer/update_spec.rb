@@ -38,7 +38,7 @@ RSpec.describe 'PATCH - /customers/:id' do
       patch("/customers/#{jack.id}", params: { customer: customer_params })
 
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(response.parsed_body['error']).to eq('The name Will is already in use!')
+      expect(response.parsed_body['error']).to eq('Validation failed: Name has already been taken')
     end
 
     it 'returns an error message if limit is less than 0' do
