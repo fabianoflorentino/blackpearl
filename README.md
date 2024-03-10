@@ -65,6 +65,8 @@ erDiagram
     STRING name
     INT limit
     INT balance
+    STRING email
+    STRING password
     DATETIME created_at
     DATETIME updated_at
   }
