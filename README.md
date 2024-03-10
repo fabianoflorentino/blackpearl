@@ -90,6 +90,8 @@ erDiagram
 - `PATCH /customers/:id`: Update a customer
 - `DELETE /customers/:id`: Delete a customer
 
+### Customer Parameters
+
 | Parameter | Type | Description | Required | Observations |
 | :--- | :---: | :--- | :---: | :--- |
 | name | string | Customer name | true | Customer name must have maximum 100 characters |
@@ -122,7 +124,7 @@ curl --location --request POST 'http://localhost:9999/customers' \
 
 - `POST /customers/:customer_id/transactions`: Create a transaction for a customer
 
-### Parameters
+### Transaction Parameters
 
 | Parameter | Type | Description | Required | Observations |
 | :--- | :---: | :--- | :---: | :--- |
