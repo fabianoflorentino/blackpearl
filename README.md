@@ -87,8 +87,32 @@ erDiagram
 - `GET /customers`: List all customers
 - `GET /customers/:id`: Show a customer
 - `POST /customers`: Create a customer
-- `PUT /customers/:id`: Update a customer
+- `PATCH /customers/:id`: Update a customer
 - `DELETE /customers/:id`: Delete a customer
+
+| Parameter | Type | Description | Required | Observations |
+| :--- | :---: | :--- | :---: | :--- |
+| name | string | Customer name | true | Customer name must have maximum 100 characters |
+| limit | integer | Customer limit | true | Customer limit must be greater than 0 |
+| email | string | Customer email | true | Customer email must be a valid email |
+| password | string | Customer password | true | Customer password must have minimum 8 characters |
+
+#### Customer Request Example
+
+`cURL`
+
+```shell
+curl --location --request POST 'http://localhost:9999/customers' \
+--header 'Content-Type: application/json' \
+--data '{
+  "customer": {
+    "name": "John Doe",
+    "limit": 1000,
+    "email": "customer@example.com",
+    "password": "12345678"
+  }
+}'
+```
 
 ### EXTRACT
 
@@ -106,7 +130,7 @@ erDiagram
 | amount | integer | Transaction amount | true | Transaction amount must be greater than 0 |
 | description | text | Transaction description | true | Transaction must have maximum 10 characters |
 
-#### Example
+#### Transaction Request Example
 
 `cURL`
 
