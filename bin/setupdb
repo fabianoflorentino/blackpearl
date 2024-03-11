@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# Configure the database
+POSTGRES_PASSWORD="$(kubectl get secret --namespace blackpearl blackpearl-db-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)"
+export POSTGRES_PASSWORD
+
+kubectl run blackpearl-db-postgresql-client --rm --tty -i --restart='Never' \
+  --namespace blackpearl --image docker.io/bitnami/postgresql:16.2.0-debian-12-r6 \
+  --env="PGPASSWORD=$POSTGRES_PASSWORD" \
+  --command -- psql --host blackpearl-db-postgresql -U blackpearl -d blackpearl -p 5432
+
+CREATE ROLE blackpearl WITH LOGIN PASSWORD "${POSTGRES_PASSWORD}";
+ALTER ROLE blackpearl CREATEDB;
+CREATE DATABASE blackpearl;
+ALTER DATABASE blackpearl OWNER TO blackpearl;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO blackpearl;
