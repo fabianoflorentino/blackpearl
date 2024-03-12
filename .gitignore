@@ -61,3 +61,4 @@ build-iPhoneSimulator/
 /config/master.key
 /log/*.log
 .DS_Store
+/.vscode
