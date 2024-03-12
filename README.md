@@ -149,3 +149,9 @@ curl --location 'http://localhost:9999/customers/5c515ff2-7236-4543-8cf4-92c02ac
   }
 }'
 ```
+
+## Development
+
+[Follow the development guide](docs/development.md)
+
+[Back to top](#black-pearl)
