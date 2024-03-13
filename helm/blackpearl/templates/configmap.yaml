@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configmap.metadata.name }}
+  labels:
+    app: {{ include "blackpearl.name" . }}
+  namespace: {{ .Values.configmap.metadata.namespace }}
+data:
+  PORT: "{{ .Values.configmap.data.RAILS_PORT }}"
+  RAILS_ENV: {{ .Values.configmap.data.RAILS_ENV }}
+  RAILS_LOG_TO_STDOUT: "{{ .Values.configmap.data.RAILS_LOG_TO_STDOUT }}"
+  RAILS_SERVE_STATIC_FILES: "{{ .Values.configmap.data.RAILS_SERVE_STATIC_FILES }}"
+  SECRET_KEY_BASE: {{ .Values.configmap.data.SECRET_KEY_BASE }}
+  POSTGRES_HOST: {{ .Values.configmap.data.POSTGRES_HOST }}
+  POSTGRES_PORT: "{{ .Values.configmap.data.POSTGRES_PORT }}"
+  POSTGRES_USER: {{ .Values.configmap.data.POSTGRES_USER }}
+  POSTGRES_PASSWORD: "{{ .Values.configmap.data.POSTGRES_PASSWORD }}"
+  POSTGRES_DB: {{ .Values.configmap.data.POSTGRES_DB }}

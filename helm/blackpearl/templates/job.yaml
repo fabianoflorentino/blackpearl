@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: blackpearl-migration
+  namespace: blackpearl
+  labels:
+    app.kubernetes.io/name: blackpearl-migration
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: blackpearl-migration
+    spec:
+      containers:
+      - command:
+        - rails
+        - db:migrate
+        envFrom:
+        - configMapRef:
+            name: blackpearl-config
+        image: fabianoflorentino/blackpearl:0.1-linux-arm64
+        imagePullPolicy: IfNotPresent
+        name: main
+      restartPolicy: Never
