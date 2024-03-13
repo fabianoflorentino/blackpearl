@@ -9,16 +9,10 @@ module CustomerUseCase
     end
 
     def call
-      new_customer.save!
-      new_customer
-    end
+      customer = Customer.new(@customer_params)
+      customer.save!
 
-    private
-
-    attr_reader :customer_params
-
-    def new_customer
-      Customer.new(customer_params)
+      customer
     end
   end
 end
