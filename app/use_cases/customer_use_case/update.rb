@@ -10,12 +10,13 @@ module CustomerUseCase
 
     def call
       customer.update!(@customer_params)
+      customer
     end
 
     private
 
     def customer
-      @customer ||= Customer.find(@customer_id)
+      @customer = Customer.find(@customer_id)
     end
   end
 end
