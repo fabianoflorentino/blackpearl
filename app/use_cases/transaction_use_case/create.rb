@@ -13,8 +13,7 @@ module TransactionUseCase
 
     def call
       transaction = Transaction.new(customer_id: @customer_id, amount: @amount, kind: @kind, description: @description)
-      transaction.valid?
-      transaction.save!
+      transaction&.save!
 
       transaction
     end

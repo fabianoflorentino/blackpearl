@@ -9,12 +9,6 @@ module TransactionUseCase
     end
 
     def call
-      extract
-    end
-
-    private
-
-    def extract
       {
         extract: {
           balance: {
@@ -35,8 +29,10 @@ module TransactionUseCase
       }
     end
 
+    private
+
     def transactions
-      transactions ||= Transaction.includes(:customer).where(customer_id: @customer_id)
+      transactions = Transaction.includes(:customer).where(customer_id: @customer_id)
       transactions.order(created_at: :desc).limit(10)
     end
 
