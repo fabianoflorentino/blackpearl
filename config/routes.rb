@@ -16,4 +16,8 @@ Rails.application.routes.draw do
     resources :transactions, only: %i[create]
     resources :extracts, only: %i[index]
   end
+
+  resource :authentication, only: %i[index] do
+    resource :token, only: %i[create]
+  end
 end

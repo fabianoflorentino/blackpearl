@@ -2,10 +2,11 @@
 
 source 'https://rubygems.org'
 
-ruby '3.2.3'
+ruby File.read('.ruby-version').split('-').last.strip
 
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
 
+gem 'bcrypt', '~> 3.1', '>= 3.1.20'
 gem 'bootsnap', require: false
 gem 'jsonapi-serializer', '~> 2.2.0'
 gem 'jwt', '~> 2.8', '>= 2.8.1'
