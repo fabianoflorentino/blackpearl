@@ -29,7 +29,7 @@ RSpec.describe 'POST - /authentications/tokens' do
       post(url, params: { email: customer.email, password: customer.password })
 
       token = response.parsed_body['token']
-      decoded_token = JWT.decode(token, Rails.application.credentials.secret_key_base, true, algorithm: 'HS256').first
+      decoded_token = JWT.decode(token, Rails.application.config.secret_key_base, true, algorithm: 'HS256').first
 
       expect(decoded_token['customer_id']).to eq(customer.id)
       expect(decoded_token['email']).to eq(customer.email)

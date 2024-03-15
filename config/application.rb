@@ -36,5 +36,7 @@ module App
       app.routes_reloader.paths.delete_if { |path| path.include?('activestorage') }
       app.routes_reloader.paths.delete_if { |path| path.include?('actionmailbox') }
     end
+
+    config.secret_key_base = ENV.fetch('SECRET_KEY_BASE')
   end
 end
