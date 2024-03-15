@@ -21,11 +21,11 @@ module AuthenticationUseCase
     end
 
     def validate_customer
-      raise ActiveRecord::RecordNotFound unless customer
+      raise SharedErrors::CustomerNotFound unless customer
     end
 
     def password_valid?
-      raise ActiveRecord::RecordInvalid unless customer.password == @password
+      raise SharedErrors::WrongPassword unless customer.password == @password
     end
 
     def payload
@@ -38,7 +38,7 @@ module AuthenticationUseCase
     end
 
     def generate_token(payload)
-      JWT.encode(payload, Rails.application.credentials.secret_key_base)
+      JWT.encode(payload, Rails.application.credentials.secret_key_base, 'HS256')
     end
   end
 end
