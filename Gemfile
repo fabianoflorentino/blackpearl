@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby File.read('.ruby-version').split('-')[1].strip
+ruby File.read('.ruby-version').split('-').last.strip
 
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
 
