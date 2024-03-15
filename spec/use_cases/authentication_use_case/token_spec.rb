@@ -20,13 +20,13 @@ RSpec.describe AuthenticationUseCase::Token do
     end
 
     it 'raises an error if the customer is not found' do
-      expect { described_class.new(email, password).call }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { described_class.new(email, password).call }.to raise_error(SharedErrors::CustomerNotFound)
     end
 
     it 'raises an error if the password is incorrect' do
       create(:customer, email:, password: 'password1234')
 
-      expect { described_class.new(email, 'wrongpassword').call }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { described_class.new(email, 'wrongpassword').call }.to raise_error(SharedErrors::WrongPassword)
     end
   end
 end
