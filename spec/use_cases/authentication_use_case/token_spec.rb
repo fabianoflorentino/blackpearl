@@ -11,7 +11,7 @@ RSpec.describe AuthenticationUseCase::Token do
       customer = create(:customer, email:, password:)
 
       token = described_class.new(email, password).call
-      decoded_token = JWT.decode(token, Rails.application.credentials.secret_key_base, true, algorithm: 'HS256').first
+      decoded_token = JWT.decode(token, Rails.application.config.secret_key_base, true, algorithm: 'HS256').first
 
       expect(decoded_token['customer_id']).to eq(customer.id)
       expect(decoded_token['email']).to eq(customer.email)
