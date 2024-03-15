@@ -5,7 +5,7 @@ COPY . /app
 WORKDIR /app
 
 RUN apk update && apk upgrade --no-cache \
-  && apk add --no-cache libpq-dev build-base git bash tzdata gcompat postgresql \
+  && apk add --no-cache libpq-dev build-base git bash tzdata gcompat gcc g++ postgresql \
   && gem install rails railties bundler \
   && bundle install --jobs 2 --no-cache \
   && bundle exec bootsnap precompile
