@@ -22,24 +22,24 @@ class UpdateCustomerBalanceFunction < ActiveRecord::Migration[7.1]
 
         IF transaction_kind = 'c' THEN
           new_balance := customer_balance + transaction_amount;
+
+          IF new_balance <= customer_limit THEN
+            UPDATE customers SET balance = new_balance WHERE id = transaction_customer_id;
+            UPDATE transactions SET updated_at = NOW() WHERE id = transaction_id;
+          ELSE
+            RAISE EXCEPTION 'Customer limit reached';
+          END IF;
         END IF;
 
         IF transaction_kind = 'd' THEN
           new_balance := customer_balance - transaction_amount;
-        END IF;
 
-        IF transaction_kind = 'c' AND new_balance <= customer_limit THEN
-          UPDATE customers SET balance = new_balance WHERE id = transaction_customer_id;
-          UPDATE transactions SET updated_at = NOW() WHERE id = transaction_id;
-        ELSE
-          RAISE EXCEPTION 'Customer limit reached';
-        END IF;
-
-        IF transaction_kind = 'd' AND new_balance >= customer_limit * -1 THEN
-          UPDATE customers SET balance = balance - transaction_amount WHERE id = transaction_customer_id;
-          UPDATE transactions SET updated_at = NOW() WHERE id = transaction_id;
-        ELSE
-          RAISE EXCEPTION 'Customer limit reached';
+          IF new_balance >= customer_limit * -1 THEN
+            UPDATE customers SET balance = new_balance WHERE id = transaction_customer_id;
+            UPDATE transactions SET updated_at = NOW() WHERE id = transaction_id;
+          ELSE
+            RAISE EXCEPTION 'Customer limit reached';
+          END IF;
         END IF;
       END;
       $$ LANGUAGE plpgsql;
