@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::StatementInvalid, with: :customer_limit_reached
   rescue_from SharedErrors::CustomerNotFound, with: :customer_not_found
   rescue_from SharedErrors::WrongPassword, with: :wrong_password
+  rescue_from SharedErrors::BalanceEmpty, with: :balance_must_be_zero
 
   private
 
@@ -29,6 +30,10 @@ class ApplicationController < ActionController::API
   end
 
   def wrong_password(exception)
+    render json: { error: exception.message }, status: :unprocessable_entity
+  end
+
+  def balance_must_be_zero(exception)
     render json: { error: exception.message }, status: :unprocessable_entity
   end
 end
