@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'DELETE - /customer' do
-  let(:customer) { create(:customer) }
+  let(:customer) { create(:customer, balance: 0) }
   let(:url) { '/customers' }
 
   describe 'DELETE /customers/:id' do
@@ -18,7 +18,9 @@ RSpec.describe 'DELETE - /customer' do
 
     context 'when the customer does not exist' do
       it 'returns 404' do
-        delete("#{url}/0")
+        not_found_customer = SecureRandom.uuid
+
+        delete("#{url}/#{not_found_customer}")
 
         expect(response).to have_http_status(:not_found)
       end

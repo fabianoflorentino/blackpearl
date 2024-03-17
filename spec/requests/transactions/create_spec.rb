@@ -5,10 +5,11 @@ require 'rails_helper'
 RSpec.describe 'POST - /customers/:id/transactions' do
   let(:customer) { create(:customer) }
   let(:transaction) { attributes_for(:transaction) }
+  let(:url) { "/customers/#{customer.id}/transactions" }
 
   context 'when the request is valid' do
     it 'returns status code 201' do
-      post("/customers/#{customer.id}/transactions", params: { transaction: })
+      post(url, params: { transaction: })
 
       expect(response).to have_http_status(:created)
     end
@@ -16,25 +17,25 @@ RSpec.describe 'POST - /customers/:id/transactions' do
 
   context 'when the request is invalid' do
     it 'returns status code 422 if amount is invalid' do
-      post("/customers/#{customer.id}/transactions", params: { transaction: { amount: nil } })
+      post(url, params: { transaction: { amount: nil } })
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
     it 'returns status code 422 if amount is less than 0' do
-      post("/customers/#{customer.id}/transactions", params: { transaction: { amount: -1 } })
+      post(url, params: { transaction: { amount: -1 } })
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
     it 'returns status code 422 if amount is not integer' do
-      post("/customers/#{customer.id}/transactions", params: { transaction: { amount: 1.1 } })
+      post(url, params: { transaction: { amount: 1.1 } })
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
     it 'returns status code 422 if kind is invalid' do
-      post("/customers/#{customer.id}/transactions", params: { transaction: { kind: 'x' } })
+      post(url, params: { transaction: { kind: 'x' } })
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
@@ -42,7 +43,7 @@ RSpec.describe 'POST - /customers/:id/transactions' do
     it 'returns status code 422 if description is invalid' do
       description = Faker::Lorem.characters(number: 11)
 
-      post("/customers/#{customer.id}/transactions", params: { transaction: { description: } })
+      post(url, params: { transaction: { description: } })
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
@@ -50,7 +51,7 @@ RSpec.describe 'POST - /customers/:id/transactions' do
     it 'returns status code 422 if description has special characters' do
       description = '!@#$%^&**()[]_+'
 
-      post("/customers/#{customer.id}/transactions", params: { transaction: { description: } })
+      post(url, params: { transaction: { description: } })
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
@@ -58,7 +59,7 @@ RSpec.describe 'POST - /customers/:id/transactions' do
     it 'returns status code 422 if description is nil' do
       description = nil
 
-      post("/customers/#{customer.id}/transactions", params: { transaction: { description: } })
+      post(url, params: { transaction: { description: } })
 
       expect(response).to have_http_status(:unprocessable_entity)
     end
