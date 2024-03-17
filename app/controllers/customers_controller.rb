@@ -21,8 +21,7 @@ class CustomersController < ApplicationController
   end
 
   def destroy
-    customer.destroy!
-
+    CustomerUseCase::Delete.new(params[:id]).call
     render json: { message: 'Customer deleted!' }, status: :ok
   end
 
