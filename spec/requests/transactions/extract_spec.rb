@@ -4,17 +4,19 @@ require 'rails_helper'
 
 RSpec.describe 'GET - /customers/:id/extracts' do
   let(:customer) { create(:customer) }
+  let(:authorization) { AuthenticationUseCase::Token.new(customer.email, customer.password).call }
+  let(:headers) { { 'Content-type' => 'application/json', 'Authorization' => "Bearer #{authorization}" } }
   let(:url) { "/customers/#{customer.id}/extracts" }
 
   context 'when the request is valid' do
     it 'returns status code 200' do
-      get(url)
+      get(url, headers:)
 
       expect(response).to have_http_status(:ok)
     end
 
     it 'returns the customer extract' do
-      get(url)
+      get(url, headers:)
 
       expect(response.parsed_body['extract']['balance'].keys).to match_array(%w[total date limit])
       expect(response.parsed_body['extract']['transactions']).to eq([])
@@ -24,7 +26,7 @@ RSpec.describe 'GET - /customers/:id/extracts' do
       transactions = create_list(:transaction, 10, customer:)
       transaction_attributes = %w[id kind date amount description]
 
-      get(url)
+      get(url, headers:)
 
       response_transactions_last_id = response.parsed_body['extract']['transactions'].last[:id]
 
@@ -34,7 +36,7 @@ RSpec.describe 'GET - /customers/:id/extracts' do
     end
 
     it 'raises an error when the customer does not exist' do
-      get("/customers/#{SecureRandom.uuid}/extracts")
+      get("/customers/#{SecureRandom.uuid}/extracts", headers:)
 
       expect(response).to have_http_status(:not_found)
     end
