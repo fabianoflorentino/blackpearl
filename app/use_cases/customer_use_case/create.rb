@@ -10,7 +10,7 @@ module CustomerUseCase
 
     def call
       customer = Customer.new(@customer_params)
-      customer.save!
+      customer&.save!
 
       customer
     end
