@@ -8,6 +8,7 @@ class ApplicationController < ActionController::API
   rescue_from SharedErrors::CustomerNotFound, with: :customer_not_found
   rescue_from SharedErrors::WrongPassword, with: :wrong_password
   rescue_from SharedErrors::BalanceEmpty, with: :balance_must_be_zero
+  rescue_from JWT::DecodeError, with: :unauthorized_request
 
   private
 
@@ -35,5 +36,11 @@ class ApplicationController < ActionController::API
 
   def balance_must_be_zero(exception)
     render json: { error: exception.message }, status: :unprocessable_entity
+  end
+
+  def unauthorized_request(exception)
+    render json: { error: 'Unauthorized request' }, status: :unauthorized
+
+    Rails.logger.error(exception.message)
   end
 end
