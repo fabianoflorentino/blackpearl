@@ -84,6 +84,30 @@ erDiagram
 
 ## Endpoints
 
+### AUTHENTICATION
+
+- `POST - /authentication/token`: Create a token to authenticate a customer
+
+#### Authentication Parameters
+
+| Parameter | Type | Description | Required | Observations |
+| :--- | :---: | :--- | :---: | :--- |
+| email | string | Customer email | true | Customer email must be a valid email |
+| password | string | Customer password | true | Customer password must have minimum 8 characters and maximum 22 |
+
+#### Authentication Request Example
+
+`cURL`
+
+```shell
+curl --location --request POST 'http://localhost:9999/authentication/token' \
+--header 'Content-Type: application/json' \
+--data '{
+  "email": example@email.com",
+  "password": "12345678"
+}'
+```
+
 ### CUSTOMER
 
 - `GET /customers`: List all customers
