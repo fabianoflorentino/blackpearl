@@ -112,11 +112,11 @@ curl --location --request POST 'http://localhost:9999/authentication/token' \
 
 ```authentication required```
 
-- `GET /customers`: List all customers 
-- `GET /customers/:id`: Show a customer 
-- `POST /customers`: Create a customer ```admin role required``` 
-- `PATCH /customers/:id`: Update a customer 
-- `DELETE /customers/:id`: Delete a customer 
+- `GET /customers`: List all customers
+- `GET /customers/:id`: Show a customer
+- `POST /customers`: Create a customer ```admin role required```
+- `PATCH /customers/:id`: Update a customer
+- `DELETE /customers/:id`: Delete a customer
 
 ### Customer Parameters
 
