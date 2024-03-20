@@ -2,6 +2,7 @@
 
 # CustomersController
 class CustomersController < ApplicationController
+  # TODO: Implement role based authorization for the create action.
   before_action :authorize_request, except: :create
 
   def index
