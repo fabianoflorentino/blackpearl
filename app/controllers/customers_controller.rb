@@ -2,6 +2,8 @@
 
 # CustomersController
 class CustomersController < ApplicationController
+  before_action :authorize_request, except: :create
+
   def index
     render json: { customers: }, status: :ok
   end
@@ -37,5 +39,9 @@ class CustomersController < ApplicationController
 
   def customer_params
     params.require(:customer).permit(:name, :limit, :balance, :email, :password)
+  end
+
+  def authorize_request
+    AuthenticationUseCase::Authorize.new(request.headers).call
   end
 end
