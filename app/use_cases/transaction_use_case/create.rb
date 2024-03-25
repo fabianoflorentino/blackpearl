@@ -21,7 +21,7 @@ module TransactionUseCase
     private
 
     def set_customer
-      @customer = Customer.find(@customer_id)
+      Customer.find(@customer_id)
     end
   end
 end

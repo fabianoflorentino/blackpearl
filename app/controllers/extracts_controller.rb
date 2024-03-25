@@ -5,7 +5,6 @@ class ExtractsController < ApplicationController
   before_action :authorize_request
 
   def index
-    extract = TransactionUseCase::Extract.new(params[:customer_id]).call
     render json: extract, status: :ok
   end
 
@@ -13,5 +12,9 @@ class ExtractsController < ApplicationController
 
   def authorize_request
     AuthenticationUseCase::Authorize.new(request.headers).call
+  end
+
+  def extract
+    TransactionUseCase::Extract.new(params[:customer_id]).call
   end
 end

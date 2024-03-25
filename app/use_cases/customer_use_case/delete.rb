@@ -8,7 +8,7 @@ module CustomerUseCase
     end
 
     def call
-      return customer.destroy! if balance?
+      return customer.destroy! if customer.balance.zero?
 
       raise SharedErrors::BalanceEmpty
     end
@@ -18,11 +18,7 @@ module CustomerUseCase
     attr_reader :id
 
     def customer
-      @customer = Customer.includes(:transactions).find(@id)
-    end
-
-    def balance?
-      customer.balance.zero?
+      Customer.includes(:transactions).find(@id)
     end
   end
 end
