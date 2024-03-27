@@ -12,7 +12,7 @@ module TransactionUseCase
     end
 
     def call
-      transaction = Transaction.new(customer_id: @customer_id, amount: @amount, kind: @kind, description: @description)
+      transaction = Transaction.new(**set_transaction)
       transaction&.save!
 
       transaction
@@ -22,6 +22,15 @@ module TransactionUseCase
 
     def set_customer
       Customer.find(@customer_id)
+    end
+
+    def set_transaction
+      {
+        customer_id: @customer_id,
+        amount: @amount,
+        kind: @kind,
+        description: @description
+      }
     end
   end
 end
