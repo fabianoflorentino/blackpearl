@@ -9,4 +9,5 @@ class Customer < ApplicationRecord
   validates :balance, presence: true, numericality: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 8, maximum: 22 }
+  validates :role, presence: true, inclusion: { in: %w[administrator customer] }
 end
