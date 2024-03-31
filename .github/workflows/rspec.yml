@@ -71,6 +71,7 @@ jobs:
 
       - name: Database Setup
         run: |
+          psql --host="${POSTGRES_HOST}" --username="${POSTGRES_USER}" --no-password --dbname="${POSTGRES_DB}" --file=/app/db/init.sql && exit 0
           bundle exec rails db:migrate
 
       - name: Run RSpec
