@@ -72,10 +72,6 @@ jobs:
 
       - name: Database Setup
         run: |
-          psql "postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432" << EOF
-            CREATE EXTENSION IF NOT EXISTS "pgcrypto";
-          EOF
-
           bundle exec rails db:migrate
 
       - name: Run RSpec
