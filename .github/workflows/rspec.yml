@@ -72,7 +72,7 @@ jobs:
 
       - name: Database Setup
         run: |
-          psql "postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@postgres:5432" << EOF
+          psql "postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432" << EOF
             CREATE EXTENSION IF NOT EXISTS "pgcrypto";
           EOF
 
