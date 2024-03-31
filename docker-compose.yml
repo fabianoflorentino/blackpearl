@@ -30,6 +30,19 @@ services:
     networks:
       - dev
 
+  blackpearl-db-initialize:
+    container_name: blackpearl-db-initialize
+    image: fabianoflorentino/blackpearl:0.1-linux-arm64
+    hostname: blackpearl-db-initialize
+    volumes:
+      - .:/app
+    env_file: .env
+    depends_on:
+      - blackpearl-db
+    networks:
+      - dev
+    entrypoint: ["/bin/sh", "-c", "bin/initdb"]
+
   blackpearl-migration:
     container_name: blackpearl-migration
     image: fabianoflorentino/blackpearl:0.1-linux-arm64
@@ -38,6 +51,7 @@ services:
       - .:/app
     env_file: .env
     depends_on:
+      - blackpearl-db-initialize
       - blackpearl-db
     networks:
       - dev
