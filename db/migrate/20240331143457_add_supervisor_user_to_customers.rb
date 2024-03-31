@@ -7,6 +7,8 @@ class AddSupervisorUserToCustomers < ActiveRecord::Migration[7.1]
 
   def up
     execute <<-SQL.squish
+      CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
       INSERT INTO customers (name, email, password, role, created_at, updated_at)
       VALUES ('Supervisor', 'supervisor@local.com', crypt('#{SUPERVISOR_PASSWORD}', gen_salt('bf')), 'admin', now(), now())
     SQL
